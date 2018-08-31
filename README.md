@@ -14,6 +14,7 @@ Bora fazer o trabalho de Ruby e apontar com o INDICAdor :sparkles: :heart:
 - A pasta "spec" terá os arquivos de teste;
 	- O 'spec-helper.rb' e o '.rspec' são meio automáticos
 	- Se temos um arquivo chamado 'batata.rb', seu teste deve ser 'batata_spec.rb';
+	- Caso tenham dúvidas sobre o RSpec, recomendo este [site](http://blog.teamtreehouse.com/an-introduction-to-rspec)
 - Sejam *bem* elegantes.
 
 ![Gif fofo](https://i.pinimg.com/originals/e6/7b/09/e67b0985c1c7daad19fd7a05ef4532b2.gif)
