@@ -6,5 +6,9 @@ describe Company do
 		company = Company.new
     expect(company).not_to be_nil
   end
-  
+
+  it "should have 5 sector" do
+  	company = Company.new
+  	expect(company.sectors.size).to eq (5)
+  end
 end
