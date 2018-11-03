@@ -1,4 +1,5 @@
 require "company"
+require "employee"
 
 describe Company do
 
@@ -26,10 +27,18 @@ describe Company do
 end
 
 describe Sector do
-	
+
+	before(:each) do
+    @sector = Sector.new("Technology", 3)
+  end
+
 	it "should have a name associated with it" do
-		sector = Sector.new("Executive")
-		expect(sector.name).to eq ("Executive")
+		expect(@sector.name).to eq ("Technology")
+	end
+
+	it "should be able to hire a employee" do
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+    expect(@sector.size).to eq (1)
 	end
 
 end

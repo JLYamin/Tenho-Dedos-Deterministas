@@ -1,6 +1,6 @@
 class Employee
 	attr_reader   :name, :birthday, :age, :cpf, :id, :entry, :profession
-	attr_accessor :sector, :salary, :voucher, :job
+	attr_accessor :sector, :salary, :voucher, :job, :employed
 
 	def initialize (name, birthday, cpf, id)
 		@name = name
@@ -20,6 +20,7 @@ class Employee
 			@sector = sector
 			@voucher = false
 			self.defineSalary()
+			@employed = true
 		end
 	end
 
@@ -52,4 +53,5 @@ class Employee
 	  end
 	  age
 	end
+
 end

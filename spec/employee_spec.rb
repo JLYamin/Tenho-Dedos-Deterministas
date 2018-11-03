@@ -5,7 +5,7 @@ require "company"
 describe Employee do 
 
 	before(:each) do
-		sector = Sector.new("Technology")
+		sector = Sector.new("Technology", 3)
     @employee = Employee.new("John", Date.new(1998,1,18), "888.888.888-88", 88)
   	@employee.employ("Assistant", "Eng. da Computação", sector)
   end
@@ -60,6 +60,6 @@ describe Employee do
 
 	it "shouldn't accept a inexistent job" do 
 		emp = Employee.new("Jojo", Date.new(1999,5,12), "888.888.888-80", 80)
-		expect{emp.employ("Unemployed", "Student", Sector.new("Doesnt Exist"))}.to throw_symbol
+		expect{emp.employ("Unemployed", "Student", Sector.new("Doesnt Exist", -1))}.to throw_symbol
 	end
 end
