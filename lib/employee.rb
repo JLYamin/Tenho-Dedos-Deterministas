@@ -26,17 +26,19 @@ class Employee
 	def defineSalary
 			case job
 				when "Assistant"
-					@salary = 1500.00
+					@salary  = 1500.00
+					@voucher = true
 				when "Technician"
-					@salary = 3000.00
+					@salary  = 3000.00
+					@voucher = true
 				when "Professional"
-					@salary = 6500.00
+					@salary  = 6500.00
 				when "Director"
-					@salary = 9500.00
+					@salary  = 9500.00
 				when "COO"
-					@salary = 13000.00
+					@salary  = 13000.00
 				when "CEO"
-					@salary = 18000.00
+					@salary  = 18000.00
 				else 
 					throw :InvalidJob				
 			end
