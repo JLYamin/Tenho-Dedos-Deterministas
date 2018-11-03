@@ -1,13 +1,23 @@
 class Employee
-	attr_reader :name, :birthday, :age, :cpf, :id, :entry
+	attr_reader   :name, :birthday, :age, :cpf, :id, :entry, :profession
+	attr_accessor :sector, :salary, :voucher, :job
 
-	def initialize (name, birthday, cpf, id)
+	def initialize (name, birthday, cpf, id, salary, voucher, sector, job, profession)
 		@name = name
 		@birthday = birthday
 		@age = self.calculateAge()
 		@cpf = cpf
 		@id = id
 		@entry = Date.today
+		@salary = salary
+		@voucher = voucher
+		@sector = sector
+		@job = job
+		@profession = profession
+	end
+
+	def employ
+
 	end
 
 	def calculateAge
