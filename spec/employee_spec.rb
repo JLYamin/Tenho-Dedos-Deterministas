@@ -6,7 +6,8 @@ describe Employee do
 
 	before(:each) do
 		sector = Sector.new("Technology")
-    @employee = Employee.new("John", Date.new(1998,1,18), "888.888.888-88", 88, 880.00, true, sector, "Auxiliar", "Eng. da Computação")
+    @employee = Employee.new("John", Date.new(1998,1,18), "888.888.888-88", 88)
+  	@employee.employ("Assistant", "Eng. da Computação", sector)
   end
 
 	it "should have a name" do
@@ -51,5 +52,14 @@ describe Employee do
 
 	it "should have a profession" do 
 		expect(@employee.profession).to be_a String
+	end
+
+	it "should have a salary of 1500 reais if is a assistant" do 
+		expect(@employee.salary).to eq (1500)
+	end
+
+	it "shouldn't accept a inexistent job" do 
+		emp = Employee.new("Jojo", Date.new(1999,5,12), "888.888.888-80", 80)
+		expect{emp.employ("Unemployed", "Student", Sector.new("Doesnt Exist"))}.to throw_symbol
 	end
 end

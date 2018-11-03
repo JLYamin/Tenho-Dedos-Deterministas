@@ -2,22 +2,44 @@ class Employee
 	attr_reader   :name, :birthday, :age, :cpf, :id, :entry, :profession
 	attr_accessor :sector, :salary, :voucher, :job
 
-	def initialize (name, birthday, cpf, id, salary, voucher, sector, job, profession)
+	def initialize (name, birthday, cpf, id)
 		@name = name
 		@birthday = birthday
 		@age = self.calculateAge()
 		@cpf = cpf
 		@id = id
 		@entry = Date.today
-		@salary = salary
-		@voucher = voucher
-		@sector = sector
-		@job = job
-		@profession = profession
+
+		@employed = false
 	end
 
-	def employ
+	def employ (job, profession, sector)
+		if (!@employed)
+			@job = job
+			@profession = profession
+			@sector = sector
+			@voucher = false
+			self.defineSalary()
+		end
+	end
 
+	def defineSalary
+			case job
+				when "Assistant"
+					@salary = 1500.00
+				when "Technician"
+					@salary = 3000.00
+				when "Professional"
+					@salary = 6500.00
+				when "Director"
+					@salary = 9500.00
+				when "COO"
+					@salary = 13000.00
+				when "CEO"
+					@salary = 18000.00
+				else 
+					throw :InvalidJob				
+			end
 	end
 
 	def calculateAge
