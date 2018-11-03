@@ -4,6 +4,7 @@ class Company
 	def initialize
 		@sectors = []
 		self.createSectors()
+		@operative = false
 	end
 
 	def createSectors
@@ -13,6 +14,10 @@ class Company
 		@sectors.push(Sector.new("Technology"))
 		@sectors.push(Sector.new("Normativity"))	
 		@sectors.push(Sector.new("Design"))	
+	end
+
+	def isOperant?
+		@operative
 	end
 end
 
