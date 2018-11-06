@@ -10,7 +10,7 @@ class Company
 	end
 
 	def createSectors
-		@sectors.push(Sector.new("Executive", @sectors.size))
+		@sectors.push(Sector.new("Executive", @sectors.size))		
 		@sectors.push(Sector.new("Finances", @sectors.size))
 		@sectors.push(Sector.new("Marketing", @sectors.size))
 		@sectors.push(Sector.new("Technology", @sectors.size))
@@ -48,9 +48,19 @@ class Sector
 		@employees.push(emp)
 	end
 
+	def fire (id)
+		@employees.each do |emp|
+			if emp.id==id
+				@employees.delete(emp)
+			end
+		end
+	end
+
 	def defineID
 		year = Date.today.year % 100 
-		id   = year * 10000 + @identifier * 1000 + self.size
+		id   = year * 10000 + @identifier * 1000 + self.size		#se contratar alguém, depois contratar outro alguém, e demitir um deles, o size vai voltar 1 numero. 
+																	#Da próxima vez que contratar alguém, esta pessoa terá o mesmo id que a última pessoa contratada.
+																	#Talvez se usar um contador como variável de classe?
 	end
 
 end

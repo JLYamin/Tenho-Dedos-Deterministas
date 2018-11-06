@@ -1,5 +1,6 @@
 require "company"
 require "employee"
+require "date"
 
 describe Company do
 
@@ -36,9 +37,15 @@ describe Sector do
 		expect(@sector.name).to eq ("Technology")
 	end
 
-	it "should be able to hire a employee" do
+	it "should be able to hire an employee" do
     @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
     expect(@sector.size).to eq (1)
 	end
+
+  it "should be able to fire an employee" do
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+    @sector.fire(183000)
+    expect(@sector.size).to eq (0)
+  end
 
 end
