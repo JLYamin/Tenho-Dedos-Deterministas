@@ -1,8 +1,10 @@
 require "employee"
 
+#Classe responsável pelo comportamento da Empresa
 class Company
 	attr_accessor :sectors
 
+	# Inicializa com os departamentos, cria os setores e inoperativa por ter menos de 15 funcionários por setor
 	def initialize
 		@@departments = ["Executive", "Finances", "Marketing", "Technology", "Normativity", "Design"]
 		@sectors = []
@@ -10,12 +12,14 @@ class Company
 		@operative = false
 	end
 
+	# Cria os setores
 	def createSectors
 		for i in 0..5 do 
 			@sectors.push(Sector.new(@@departments[i], i))
 		end
 	end
 
+	# Verifica se cada setor tem mais de 15 funcionários
 	def isOperant?
 		@sectors.each do |sector|
 			if sector.employees.size < 15
@@ -25,6 +29,7 @@ class Company
 		@operative = true
 	end
 
+	# Retorna total de funcionários na empresa
 	def size
 		total = 0
 		@sectors.each do |sector|
@@ -33,39 +38,48 @@ class Company
 		total
 	end
 
+	# Contrata um funcionário
 	def hire (name, birthday, cpf, sector, job, profession)
 		@sectors[@@departments.index(sector)].hire(name, birthday, cpf, job, profession)
 	end
 
+	# Calcula o setor do funcionário a partir do ID do mesmo
 	def calc(id)
 		(id/1000)%10
 	end
 
+	# Demite um funcionário
 	def fire (id)
 		@sectors[calc(id)].fire(id)
 	end
 
+	# Encontra um funcionário
 	def find (id)
 		@sectors[calc(id)].find(id)
 	end
 
+	# Aumenta o salário de um funcionário
 	def raiseSalary (id, value)
 		@sectors[calc(id)].raiseSalary(id, value)
 	end
 
+	# Promove um funcionário
 	def promote (id)
 		@sectors[calc(id)].promote(id)
 	end
 
+	# Dá bônus a um funcionário
 	def grantBonus (id)
 		@sectors[calc(id)].grantBonus(id)
 	end
 
 end
 
+# Classe responsável pelo funcionamento do setor
 class Sector
 	attr_accessor :name, :employees, :identifier
 
+	# Inicializa o setor com zero funcionários
 	def initialize(name, id)
 		@name = name
 		@identifier = id 
@@ -73,10 +87,12 @@ class Sector
 		@counter = 0
 	end
 
+	# Total de funcionários
 	def size
 		@employees.size
 	end
 
+	# Contrata um funcionário neste setor
 	def hire (name, birthday, cpf, job, profession)
 		emp = Employee.new(name, birthday, cpf, self.defineID)
 		emp.employ(job, profession, self) 
@@ -90,6 +106,7 @@ class Sector
 		# end
 	end
 
+	# Encontra um funcionário neste setor
 	def find (id)
 		@employees.each do |employee|
 			if employee.id == id
@@ -99,16 +116,19 @@ class Sector
 		throw :InexistentEmployee
 	end
 
+	# Demite um funcionário neste setor
 	def fire (id)
 		@employees.delete(self.find(id))
 	end
 
+	# Promove um funcionário neste setor
 	def promote(id)
 		@employees.each do |emp|
 			if emp.id==id
 				case emp.job
 					when "Assistant"
 						emp.job = "Technician"
+						emp.defineSalary
 					when "Technician"
 						emp.job = "Professional"
 					when "Professional"
@@ -122,11 +142,13 @@ class Sector
 					else
 						throw :InvalidJob
 				end
+				emp.defineSalary
 				@employees
 			end
 		end
 	end
 
+	# Dá bônus a um funcionário neste setor
 	def grantBonus(id)
 		@employees.each do |emp|
 			if emp.id==id
@@ -151,6 +173,7 @@ class Sector
 		end
 	end
 
+	# Aumenta o salário de um funcionário neste setor
 	def raiseSalary(id, value)
 		@employees.each do |emp|
 			if emp.id==id
@@ -160,6 +183,7 @@ class Sector
 		@employees
 	end
 
+	# Define o ID de um funcionário recém contratado
 	def defineID
 		year = Date.today.year % 100 
 		id   = year * 10000 + @identifier * 1000 + @counter

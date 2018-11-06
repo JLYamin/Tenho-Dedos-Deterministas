@@ -1,7 +1,9 @@
+# Classe responsável pela definição do Funcionário
 class Employee
 	attr_reader   :name, :birthday, :age, :cpf, :id, :entry, :profession
 	attr_accessor :sector, :salary, :voucher, :job, :employed
 
+	# Inicializa a pessoa do funcionário
 	def initialize (name, birthday, cpf, id)
 		@name = name
 		@birthday = birthday
@@ -13,6 +15,7 @@ class Employee
 		@employed = false
 	end
 
+	# Contrata efetivamente o funcionário
 	def employ (job, profession, sector)
 		if (!@employed)
 			@job = job
@@ -24,6 +27,7 @@ class Employee
 		end
 	end
 
+	# Define o salário do funcionário a partir do trabalho do mesmo
 	def defineSalary
 			case job
 				when "Assistant"
@@ -45,6 +49,7 @@ class Employee
 			end
 	end
 
+	# Calcula a idade do funcionário a partir da data de nascimento
 	def calculateAge
 	  now = Date.today
 	  age = now.year - birthday.year
