@@ -56,6 +56,30 @@ class Sector
 		end
 	end
 
+	def promote(id)
+		@employees.each do |emp|
+			if emp.id==id
+				case emp.job
+					when "Assistant"
+						emp.job = "Technician"
+					when "Technician"
+						emp.job = "Professional"
+					when "Professional"
+						emp.job = "Director"
+					when "Director"
+						emp.job = "COO"
+					when "COO"
+						emp.job = "CEO"
+					when "CEO"
+						emp.job = "CEO"
+					else
+						throw :InvalidJob
+				end
+				@employees
+			end
+		end
+	end
+
 	def defineID
 		year = Date.today.year % 100 
 		id   = year * 10000 + @identifier * 1000 + self.size		#se contratar alguém, depois contratar outro alguém, e demitir um deles, o size vai voltar 1 numero. 

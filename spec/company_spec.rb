@@ -25,6 +25,11 @@ describe Company do
   	company = Company.new
   	expect(company.isOperant?).to eq (false)
 	end
+
+  it "should be able to calculate avarage sallary by sector" do
+    
+  end
+
 end
 
 describe Sector do
@@ -47,5 +52,18 @@ describe Sector do
     @sector.fire(183000)
     expect(@sector.size).to eq (0)
   end
+
+  it "should be able to increase sallary of an employee" do
+
+  end
+
+  it "should be able to advance an employee in ranks" do 
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+    emp = @sector.promote(183000).pop
+    expect(emp.job).to eq("Technician")
+  end
+  it "should be able to correctly grant benefits for directors only"do 
+
+  end 
 
 end
