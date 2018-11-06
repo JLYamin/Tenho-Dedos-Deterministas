@@ -69,21 +69,25 @@ describe Company do
     expect(emp.job).to eq("CEO")
   end
 
-  it "should be able to correctly grant benefits for directors only #Happy Path"do 
-      company = Company.new 
-      company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Director", "Computer Engineering")
-      company.grantBonus(183000)
-      emp = company.find(183000)
-      expect(emp.salary).to eq(9500 * 1.02)
+  it "should be able to correctly grant benefits for directors only #Happy Path" do 
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Director", "Computer Engineering")
+    company.grantBonus(183000)
+    emp = company.find(183000)
+    expect(emp.salary).to eq(9500 * 1.02)
   end 
 
-  it "should be able to correctly grant benefits for directors only #Sad Path"do 
-      company = Company.new 
-      company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
-      company.grantBonus(183000)
-      emp = company.find(183000)
-      expect(emp.salary).to_not eq(9500 * 1.02)
+  it "should be able to correctly grant benefits for directors only #Sad Path" do 
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.grantBonus(183000)
+    emp = company.find(183000)
+    expect(emp.salary).to_not eq(9500 * 1.02)
   end 
+
+  it "should return the salary average" do 
+
+  end
 
 end
 
@@ -140,15 +144,24 @@ describe Sector do
   end
 
   it "should be able to correctly grant benefits for directors only #Happy Path"do 
-      @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Director", "Computer Engineering")
-      emp = @sector.grantBonus(183000).pop
-      expect(emp.salary).to eq(9500 * 1.02)
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Director", "Computer Engineering")
+    emp = @sector.grantBonus(183000).pop
+    expect(emp.salary).to eq(9500 * 1.02)
   end 
 
   it "should be able to correctly grant benefits for directors only #Sad Path"do 
-      @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
-      emp = @sector.grantBonus(183000).pop
-      expect(emp.salary).to_not eq(9500 * 1.02)
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
+    emp = @sector.grantBonus(183000).pop
+    expect(emp.salary).to_not eq(9500 * 1.02)
   end 
+
+  it "should return the salary average of the sector" do 
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
+    @sector.hire("Jota", Date.new(1989,3,30), "888.888.888-78", "Technician", "Computer Engineering")
+    @sector.hire("Josh", Date.new(1997,4,12), "888.888.888-58", "Director", "Computer Engineering")
+    @sector.hire("Jana", Date.new(1986,6,28), "888.888.888-98", "COO", "Computer Engineering")
+    
+    expect(@sector.average).to eq ((1500+3000+9500+13000)/4.0)
+  end
 
 end

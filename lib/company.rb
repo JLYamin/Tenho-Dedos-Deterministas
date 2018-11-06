@@ -73,6 +73,15 @@ class Company
 		@sectors[calc(id)].grantBonus(id)
 	end
 
+	# Define a média dos salários da empresa
+	def average
+		sum = 0
+		@sectors.each do |sector|
+			sum =+ sector.salary
+		end
+		sum / 6
+	end
+
 end
 
 # Classe responsável pelo funcionamento do setor
@@ -181,6 +190,15 @@ class Sector
 			end
 		end
 		@employees
+	end
+
+	# Define a média dos salários do setor
+	def average
+		sum = 0
+		@employees.each do |emp|
+			sum += emp.salary
+		end
+		(sum / self.size)
 	end
 
 	# Define o ID de um funcionário recém contratado
