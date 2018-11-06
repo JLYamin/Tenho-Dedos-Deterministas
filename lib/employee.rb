@@ -17,26 +17,30 @@ class Employee
 
 	# Contrata efetivamente o funcionário
 	def employ (job, profession, sector)
-		case sector
+		case sector.name
 			when 'Finances'
-				if profession != "Economist" || profession != "Accountant" || profession != "Administrator"
+				if !(profession == "Economist" || profession == "Accountant" || profession == "Administrator")
 					throw :InvalidProfession
 				end
 			when 'Marketing'
-				if profession != 'Social Communicator' || profession != 'Administrator' || profession != 'Marketer'
+				if !(profession == 'Social Communicator' || profession == 'Administrator' || profession == 'Marketer')
 					throw :InvalidProfession
 				end
 			when 'Technology'
-				if profession != 'Computer Engineering' || profession != 'Systems Engineering' || profession != 'Information Engineering'
+				if !(profession == 'Computer Engineering' || profession == 'Systems Engineering' || profession == 'Information Engineering')
 					throw :InvalidProfession
 				end
 			when 'Normativity'
-				if profession != 'Lawyers' || profession != "Normativity" || profession != "Social Communicator"
+				if !(profession == 'Lawyer' || profession == "Normativity" || profession == "Social Communicator")
 					throw :InvalidProfession
 				end
 			when 'Design'
-				if profession != 'Graphic Designer' || profession != 'Multimedia Designer' || profession != 'Social Engineering'
+				if !(profession == 'Graphic Designer' || profession == 'Multimedia Designer' || profession == 'Social Engineering')
 					throw :InvalidProfession
+				end
+			else
+				if sector.name == 'Executive' && (job != "CEO" || job != "COO")
+					throw :InvalidJob
 				end
 		end
 		if (!@employed)

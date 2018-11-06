@@ -40,12 +40,15 @@ class Company
 
 	# Contrata um funcionário
 	def hire (name, birthday, cpf, sector, job, profession)
-		@sectors.each do |sector|
-			sector.employees do |emp|
+		@sectors.each do |sec| 
+			sec.employees.each do |emp|
 				if emp.cpf == cpf
 					throw :InvalidCPF
 				end
 			end
+		end
+		if @@departments.index(sector) == nil
+			throw :InvalidSector
 		end
 		@sectors[@@departments.index(sector)].hire(name, birthday, cpf, job, profession)
 	end
@@ -84,9 +87,13 @@ class Company
 	def average
 		sum = 0
 		@sectors.each do |sector|
-			sum =+ sector.salary
+			if sector.size != 0
+				sector.employees.each do |emp|
+					sum += emp.salary
+				end
+			end
 		end
-		sum / 6
+		sum / self.size
 	end
 
 end
@@ -202,11 +209,13 @@ class Sector
 
 	# Define a média dos salários do setor
 	def average
-		sum = 0
-		@employees.each do |emp|
-			sum += emp.salary
+		if (self.size != 0)
+			sum = 0
+			@employees.each do |emp|
+				sum += emp.salary
+			end
+			(sum / self.size)
 		end
-		(sum / self.size)
 	end
 
 	# Define o ID de um funcionário recém contratado

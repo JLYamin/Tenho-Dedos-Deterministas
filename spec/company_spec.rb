@@ -87,13 +87,13 @@ describe Company do
 
   it "should return the salary average" do 
     company = Company.new 
-    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
-    company.hire("Anna", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
-    company.hire("Elis", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
-    company.hire("Leia", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
-    company.hire("Tim", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
-    company.hire("Lola", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
-
+    company.hire("John", Date.new(1998,1,18), "888.888.888-82", "Technology", "Assistant", "Computer Engineering")
+    company.hire("Anna", Date.new(1998,1,18), "888.888.888-83", "Finances", "Technician", "Accountant")
+    company.hire("Elis", Date.new(1998,1,18), "888.888.888-84", "Design", "Assistant", "Graphic Designer")
+    company.hire("Leia", Date.new(1998,1,18), "888.888.888-85", "Technology", "Assistant", "Systems Engineering")
+    company.hire("Tim", Date.new(1998,1,18), "888.888.888-86", "Normativity", "Professional", "Lawyer")
+    company.hire("Lola", Date.new(1998,1,18), "888.888.888-87", "Marketing", "Assistant", "Marketer")
+    expect(company.average).to eq ((1500+1500+1500+1500+6500+3000)/6.0)
   end
 
 end
