@@ -32,6 +32,12 @@ describe Company do
     expect(company.sectors[3].size).to eq (1)
   end
 
+  it "should be able to find an employee" do 
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    expect(company.find(183000).name).to eq ("John")
+  end
+
   it "should be able to fire an employee" do
     company = Company.new 
     company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
@@ -65,9 +71,14 @@ describe Sector do
   it "should be able to create correctly the IDs" do 
     @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
     @sector.hire("Joanne", Date.new(1998,2,18), "888.888.888-89", "Assistant", "Computer Engineering")
-    @sector.fire(18300)
+    @sector.fire(183000)
     @sector.hire("Jonathan", Date.new(1998,3,18), "888.888.888-90", "Technician", "Computer Engineering")
     expect(@sector.employees[2].id).to eq (183002)
+  end
+
+  it "should be able to find an employee" do 
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
+    expect(@sector.find(183000).name).to eq ("John")
   end
 
   it "should be able to fire an employee" do

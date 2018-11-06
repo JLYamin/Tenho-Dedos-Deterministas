@@ -42,12 +42,7 @@ class Company
 	end
 
 	def find (id)
-		@sectors[(id/1000)%10].employees.each do |employee|
-			if employee.id == id
-				return employee
-			end
-		end
-		throw :InexistentEmployee
+		@sectors[(id/1000)%10].find(id)
 	end
 
 end
@@ -79,12 +74,17 @@ class Sector
 		# end
 	end
 
-	def fire (id)
-		@employees.each do |emp|
-			if emp.id==id
-				@employees.delete(emp)
+	def find (id)
+		@employees.each do |employee|
+			if employee.id == id
+				return employee
 			end
 		end
+		throw :InexistentEmployee
+	end
+
+	def fire (id)
+		@employees.delete(self.find(id))
 	end
 
 	def promote(id)
