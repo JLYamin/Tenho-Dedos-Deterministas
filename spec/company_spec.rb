@@ -49,8 +49,42 @@ describe Company do
     company = Company.new 
     company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
     company.raiseSalary(183000, 350)
+    emp = company.find(183000)
     expect(emp.salary).to eq(1500 + 350)
   end
+
+  it "should be able to advance an employee in ranks #Common Case" do 
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.promote(183000)
+    emp = company.find(183000)
+    expect(emp.job).to eq("Technician")
+  end
+
+  it "should be able to advance an employee in ranks #Peculiar Case" do 
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "CEO", "Computer Engineering")
+    company.promote(183000)
+    emp = company.find(183000)
+    expect(emp.job).to eq("CEO")
+  end
+
+  it "should be able to correctly grant benefits for directors only #Happy Path"do 
+      company = Company.new 
+      company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Director", "Computer Engineering")
+      company.grantBonus(183000)
+      emp = company.find(183000)
+      expect(emp.salary).to eq(9500 * 1.02)
+  end 
+
+  it "should be able to correctly grant benefits for directors only #Sad Path"do 
+      company = Company.new 
+      company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+      company.grantBonus(183000)
+      emp = company.find(183000)
+      expect(emp.salary).to_not eq(9500 * 1.02)
+  end 
+
 end
 
 describe Sector do
@@ -73,7 +107,7 @@ describe Sector do
     @sector.hire("Joanne", Date.new(1998,2,18), "888.888.888-89", "Assistant", "Computer Engineering")
     @sector.fire(183000)
     @sector.hire("Jonathan", Date.new(1998,3,18), "888.888.888-90", "Technician", "Computer Engineering")
-    expect(@sector.employees[2].id).to eq (183002)
+    expect(@sector.employees[1].id).to eq (183002)
   end
 
   it "should be able to find an employee" do 

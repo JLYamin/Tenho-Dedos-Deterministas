@@ -37,12 +37,28 @@ class Company
 		@sectors[@@departments.index(sector)].hire(name, birthday, cpf, job, profession)
 	end
 
+	def calc(id)
+		(id/1000)%10
+	end
+
 	def fire (id)
-		@sectors[(id/1000)%10].fire(id)
+		@sectors[calc(id)].fire(id)
 	end
 
 	def find (id)
-		@sectors[(id/1000)%10].find(id)
+		@sectors[calc(id)].find(id)
+	end
+
+	def raiseSalary (id, value)
+		@sectors[calc(id)].raiseSalary(id, value)
+	end
+
+	def promote (id)
+		@sectors[calc(id)].promote(id)
+	end
+
+	def grantBonus (id)
+		@sectors[calc(id)].grantBonus(id)
 	end
 
 end
