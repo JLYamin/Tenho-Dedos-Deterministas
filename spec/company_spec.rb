@@ -28,8 +28,22 @@ describe Company do
 
   it "should be able to hire a employee" do 
     company = Company.new 
-    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Eng. da Computação")
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
     expect(company.sectors[3].size).to eq (1)
+  end
+
+  it "should be able to fire an employee" do
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.fire(183000)
+    expect(company.size).to eq (0)
+  end
+
+  it "should be able to increase salary of an employee" do
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.raiseSalary(183000, 350)
+    expect(emp.salary).to eq(1500 + 350)
   end
 end
 
@@ -44,42 +58,50 @@ describe Sector do
 	end
 
 	it "should be able to hire an employee" do
-    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
     expect(@sector.size).to eq (1)
 	end
 
+  it "should be able to create correctly the IDs" do 
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
+    @sector.hire("Joanne", Date.new(1998,2,18), "888.888.888-89", "Assistant", "Computer Engineering")
+    @sector.fire(18300)
+    @sector.hire("Jonathan", Date.new(1998,3,18), "888.888.888-90", "Technician", "Computer Engineering")
+    expect(@sector.employees[2].id).to eq (183002)
+  end
+
   it "should be able to fire an employee" do
-    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
     @sector.fire(183000)
     expect(@sector.size).to eq (0)
   end
 
   it "should be able to increase salary of an employee" do
-    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
     emp = @sector.raiseSalary(183000, 350).pop
     expect(emp.salary).to eq(1500 + 350)
   end
 
   it "should be able to advance an employee in ranks #Common Case" do 
-    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
     emp = @sector.promote(183000).pop
     expect(emp.job).to eq("Technician")
   end
 
   it "should be able to advance an employee in ranks #Peculiar Case" do 
-    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "CEO", "Eng. da Computação")
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "CEO", "Computer Engineering")
     emp = @sector.promote(183000).pop
     expect(emp.job).to eq("CEO")
   end
 
   it "should be able to correctly grant benefits for directors only #Happy Path"do 
-      @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Director", "Eng. da Computação")
+      @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Director", "Computer Engineering")
       emp = @sector.grantBonus(183000).pop
       expect(emp.salary).to eq(9500 * 1.02)
   end 
 
   it "should be able to correctly grant benefits for directors only #Sad Path"do 
-      @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+      @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Computer Engineering")
       emp = @sector.grantBonus(183000).pop
       expect(emp.salary).to_not eq(9500 * 1.02)
   end 

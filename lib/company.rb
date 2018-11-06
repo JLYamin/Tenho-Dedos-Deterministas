@@ -25,8 +25,29 @@ class Company
 		@operative = true
 	end
 
+	def size
+		total = 0
+		@sectors.each do |sector|
+			total += sector.size
+		end
+		total
+	end
+
 	def hire (name, birthday, cpf, sector, job, profession)
 		@sectors[@@departments.index(sector)].hire(name, birthday, cpf, job, profession)
+	end
+
+	def fire (id)
+		@sectors[(id/1000)%10].fire(id)
+	end
+
+	def find (id)
+		@sectors[(id/1000)%10].employees.each do |employee|
+			if employee.id == id
+				return employee
+			end
+		end
+		throw :InexistentEmployee
 	end
 
 end
@@ -38,6 +59,7 @@ class Sector
 		@name = name
 		@identifier = id 
 		@employees = []
+		@counter = 0
 	end
 
 	def size
@@ -47,6 +69,7 @@ class Sector
 	def hire (name, birthday, cpf, job, profession)
 		emp = Employee.new(name, birthday, cpf, self.defineID)
 		emp.employ(job, profession, self) 
+		@counter += 1
 		@employees.push(emp)
 		# case profession
 		# 	when 'Administrator', 'Accountant', 'Economist'
@@ -123,9 +146,7 @@ class Sector
 
 	def defineID
 		year = Date.today.year % 100 
-		id   = year * 10000 + @identifier * 1000 + self.size		#se contratar alguém, depois contratar outro alguém, e demitir um deles, o size vai voltar 1 numero. 
-																	#Da próxima vez que contratar alguém, esta pessoa terá o mesmo id que a última pessoa contratada.
-																	#Talvez se usar um contador como variável de classe?
+		id   = year * 10000 + @identifier * 1000 + @counter
 	end
 
 end
