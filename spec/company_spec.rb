@@ -26,9 +26,7 @@ describe Company do
   	expect(company.isOperant?).to eq (false)
 	end
 
-  it "should be able to calculate avarage sallary by sector" do
-    
-  end
+  it "should be able to calculate avarage salary by sector" 
 
 end
 
@@ -53,17 +51,34 @@ describe Sector do
     expect(@sector.size).to eq (0)
   end
 
-  it "should be able to increase sallary of an employee" do
-
+  it "should be able to increase salary of an employee" do
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+    emp = @sector.raiseSalary(183000, 350).pop
+    expect(emp.salary).to eq(1500 + 350)
   end
 
-  it "should be able to advance an employee in ranks" do 
+  it "should be able to advance an employee in ranks #Common Case" do 
     @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
     emp = @sector.promote(183000).pop
     expect(emp.job).to eq("Technician")
   end
-  it "should be able to correctly grant benefits for directors only"do 
 
+  it "should be able to advance an employee in ranks #Peculiar Case" do 
+    @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "CEO", "Eng. da Computação")
+    emp = @sector.promote(183000).pop
+    expect(emp.job).to eq("CEO")
+  end
+
+  it "should be able to correctly grant benefits for directors only #Happy Path"do 
+      @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Director", "Eng. da Computação")
+      emp = @sector.grantBonus(183000).pop
+      expect(emp.salary).to eq(9500 * 1.02)
+  end 
+
+  it "should be able to correctly grant benefits for directors only #Sad Path"do 
+      @sector.hire("John", Date.new(1998,1,18), "888.888.888-88", "Assistant", "Eng. da Computação")
+      emp = @sector.grantBonus(183000).pop
+      expect(emp.salary).to_not eq(9500 * 1.02)
   end 
 
 end

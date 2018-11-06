@@ -80,6 +80,39 @@ class Sector
 		end
 	end
 
+	def grantBonus(id)
+		@employees.each do |emp|
+			if emp.id==id
+				case emp.job
+					when "Assistant"
+						emp.salary = emp.salary * 1.00
+					when "Technician"
+						emp.salary = emp.salary * 1.00
+					when "Professional"
+						emp.salary = emp.salary * 1.00
+					when "Director"
+						emp.salary = emp.salary * 1.02
+					when "COO"
+						emp.salary = emp.salary * 1.02
+					when "CEO"
+						emp.salary = emp.salary * 1.02
+					else
+						throw :InvalidJob
+				end
+				@employees
+			end
+		end
+	end
+
+	def raiseSalary(id, value)
+		@employees.each do |emp|
+			if emp.id==id
+				emp.salary = emp.salary + value
+			end
+		end
+		@employees
+	end
+
 	def defineID
 		year = Date.today.year % 100 
 		id   = year * 10000 + @identifier * 1000 + self.size		#se contratar alguém, depois contratar outro alguém, e demitir um deles, o size vai voltar 1 numero. 
