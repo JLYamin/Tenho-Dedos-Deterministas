@@ -7,7 +7,7 @@ describe Employee do
 	before(:each) do
 		sector = Sector.new("Technology", 3)
     @employee = Employee.new("John", Date.new(1998,1,18), "888.888.888-88", 88)
-  	@employee.employ("Assistant", "Eng. da Computação", sector)
+  	@employee.employ("Assistant", "Computer Engineering", sector)
   end
 
 	it "should have a name" do

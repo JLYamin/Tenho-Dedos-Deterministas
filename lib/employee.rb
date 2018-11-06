@@ -1,7 +1,9 @@
+# Classe responsável pela definição do Funcionário
 class Employee
 	attr_reader   :name, :birthday, :age, :cpf, :id, :entry, :profession
 	attr_accessor :sector, :salary, :voucher, :job, :employed
 
+	# Inicializa a pessoa do funcionário
 	def initialize (name, birthday, cpf, id)
 		@name = name
 		@birthday = birthday
@@ -13,7 +15,34 @@ class Employee
 		@employed = false
 	end
 
+	# Contrata efetivamente o funcionário
 	def employ (job, profession, sector)
+		case sector.name
+			when 'Finances'
+				if !(profession == "Economist" || profession == "Accountant" || profession == "Administrator")
+					throw :InvalidProfession
+				end
+			when 'Marketing'
+				if !(profession == 'Social Communicator' || profession == 'Administrator' || profession == 'Marketer')
+					throw :InvalidProfession
+				end
+			when 'Technology'
+				if !(profession == 'Computer Engineering' || profession == 'Systems Engineering' || profession == 'Information Engineering')
+					throw :InvalidProfession
+				end
+			when 'Normativity'
+				if !(profession == 'Lawyer' || profession == "Normativity" || profession == "Social Communicator")
+					throw :InvalidProfession
+				end
+			when 'Design'
+				if !(profession == 'Graphic Designer' || profession == 'Multimedia Designer' || profession == 'Social Engineering')
+					throw :InvalidProfession
+				end
+			else
+				if sector.name == 'Executive' && (job != "CEO" || job != "COO")
+					throw :InvalidJob
+				end
+		end
 		if (!@employed)
 			@job = job
 			@profession = profession
@@ -24,6 +53,7 @@ class Employee
 		end
 	end
 
+	# Define o salário do funcionário a partir do trabalho do mesmo
 	def defineSalary
 			case job
 				when "Assistant"
@@ -45,6 +75,7 @@ class Employee
 			end
 	end
 
+	# Calcula a idade do funcionário a partir da data de nascimento
 	def calculateAge
 	  now = Date.today
 	  age = now.year - birthday.year
