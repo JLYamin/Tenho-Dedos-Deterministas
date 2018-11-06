@@ -86,6 +86,13 @@ describe Company do
   end 
 
   it "should return the salary average" do 
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.hire("Anna", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.hire("Elis", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.hire("Leia", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.hire("Tim", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
+    company.hire("Lola", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Computer Engineering")
 
   end
 
@@ -160,7 +167,7 @@ describe Sector do
     @sector.hire("Jota", Date.new(1989,3,30), "888.888.888-78", "Technician", "Computer Engineering")
     @sector.hire("Josh", Date.new(1997,4,12), "888.888.888-58", "Director", "Computer Engineering")
     @sector.hire("Jana", Date.new(1986,6,28), "888.888.888-98", "COO", "Computer Engineering")
-    
+
     expect(@sector.average).to eq ((1500+3000+9500+13000)/4.0)
   end
 

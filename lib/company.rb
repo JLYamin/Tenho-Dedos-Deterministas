@@ -22,7 +22,7 @@ class Company
 	# Verifica se cada setor tem mais de 15 funcionários
 	def isOperant?
 		@sectors.each do |sector|
-			if sector.employees.size < 15
+			if sector.employees.size < 15 && sector.name != "Executive"
 				return @operative = false
 			end
 		end
@@ -40,6 +40,13 @@ class Company
 
 	# Contrata um funcionário
 	def hire (name, birthday, cpf, sector, job, profession)
+		@sectors.each do |sector|
+			sector.employees do |emp|
+				if emp.cpf == cpf
+					throw :InvalidCPF
+				end
+			end
+		end
 		@sectors[@@departments.index(sector)].hire(name, birthday, cpf, job, profession)
 	end
 
@@ -104,15 +111,16 @@ class Sector
 	# Contrata um funcionário neste setor
 	def hire (name, birthday, cpf, job, profession)
 		emp = Employee.new(name, birthday, cpf, self.defineID)
+		if @identifier == 0
+			@employees.each do |emp|
+				if emp.job == job 
+					throw :JobAlreadyOccupied
+				end
+			end
+		end
 		emp.employ(job, profession, self) 
 		@counter += 1
 		@employees.push(emp)
-		# case profession
-		# 	when 'Administrator', 'Accountant', 'Economist'
-		# 	when 'Social Communicator', 
-		# 	when 'Eng. da Computação', 'Eng. de Sistemas', 'Eng. da Informação'
-				
-		# end
 	end
 
 	# Encontra um funcionário neste setor
