@@ -4,18 +4,16 @@ class Company
 	attr_accessor :sectors
 
 	def initialize
+		@@departments = ["Executive", "Finances", "Marketing", "Technology", "Normativity", "Design"]
 		@sectors = []
 		self.createSectors()
 		@operative = false
 	end
 
 	def createSectors
-		@sectors.push(Sector.new("Executive", @sectors.size))		
-		@sectors.push(Sector.new("Finances", @sectors.size))
-		@sectors.push(Sector.new("Marketing", @sectors.size))
-		@sectors.push(Sector.new("Technology", @sectors.size))
-		@sectors.push(Sector.new("Normativity", @sectors.size))	
-		@sectors.push(Sector.new("Design", @sectors.size))	
+		for i in 0..5 do 
+			@sectors.push(Sector.new(@@departments[i], i))
+		end
 	end
 
 	def isOperant?
@@ -25,6 +23,10 @@ class Company
 			end
 		end
 		@operative = true
+	end
+
+	def hire (name, birthday, cpf, sector, job, profession)
+		@sectors[@@departments.index(sector)].hire(name, birthday, cpf, job, profession)
 	end
 
 end
@@ -46,6 +48,12 @@ class Sector
 		emp = Employee.new(name, birthday, cpf, self.defineID)
 		emp.employ(job, profession, self) 
 		@employees.push(emp)
+		# case profession
+		# 	when 'Administrator', 'Accountant', 'Economist'
+		# 	when 'Social Communicator', 
+		# 	when 'Eng. da Computação', 'Eng. de Sistemas', 'Eng. da Informação'
+				
+		# end
 	end
 
 	def fire (id)

@@ -26,8 +26,11 @@ describe Company do
   	expect(company.isOperant?).to eq (false)
 	end
 
-  it "should be able to calculate avarage salary by sector" 
-
+  it "should be able to hire a employee" do 
+    company = Company.new 
+    company.hire("John", Date.new(1998,1,18), "888.888.888-88", "Technology", "Assistant", "Eng. da Computação")
+    expect(company.sectors[3].size).to eq (1)
+  end
 end
 
 describe Sector do
