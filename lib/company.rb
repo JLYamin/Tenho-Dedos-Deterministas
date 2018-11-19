@@ -96,6 +96,17 @@ class Company
 		sum / self.size
 	end
 
+	# Demite um funcionário para a transferência do mesmo para outra empresa
+	def transferOut (id)
+		emp = self.find(id)
+		self.fire(id)
+		emp
+	end
+
+	def transferIn (employee)
+		self.hire(employee.get_name, Time.parse(employee.get_birth_date), employee.get_cpf, employee.get_sector, employee.get_role, employee.get_formation.first)
+	end
+
 end
 
 # Classe responsável pelo funcionamento do setor
